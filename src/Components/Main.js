@@ -10,7 +10,7 @@ import copy from 'copy-to-clipboard';
 class Main extends Component{
 
 state = {
-    message: '',
+    message: 'Basic message',
     status: null,
     activation_token: ''
 }
@@ -21,8 +21,8 @@ componentDidMount(){
 }
 
 copyTokenToClipboard = () => {
-  copy(this.state.activation_token);
-M.toast({html: 'You copied the token! Please copy in FB APP!'});
+  copy("token " + this.state.activation_token);
+  M.toast({html: 'You copied the token! Please copy in FB APP!'});
 }
 
 
@@ -31,38 +31,38 @@ postServer = async (url, param) => {
     method: 'POST',
     body: JSON.stringify(param)
   });
-  console.log(response.json());
+ //  console.log(response.json());
 }
 
 messageChange = event => {
     this.setState({ message: event.target.value });
-    console.log(this.state.message);
+   //  console.log(this.state.message);
   };
 
 onRefresh = event => {
     this.writeUserData();
     // eslint-disable-next-line no-lone-blocks
     {this.state.status === true ? M.toast({html: `Success! You set a blocker with message: ${this.state.message}`}) : M.toast({html: `You disable the blocker!`})}
-    console.log(this.state);
+  //   console.log(this.state);
   };
 
 
   getUserData = () => {
-    console.log(firebase.auth().currentUser.uid);
+  //   console.log(firebase.auth().currentUser.uid);
     let ref = Firebase.database().ref(`/users/${firebase.auth().currentUser.uid}`);
-    console.log(ref);
+ //    console.log(ref);
     ref.on('value', snapshot => {
       const state = snapshot.val();
       this.setState(state);
-      console.log(state)
+  //     console.log(state)
     });
-    console.log(this.state);
+  //   console.log(this.state);
   }
 
 
   writeUserData = () => {
     Firebase.database().ref(`/users/${firebase.auth().currentUser.uid}`).set(this.state);
-    console.log('DATA SAVED');//write to firebase
+  //   console.log('DATA SAVED');//write to firebase
 
     let param = firebase.auth().currentUser.uid;//atentionezi backend-u
     this.postServer(`https://us-central1-facebookwarninguh.cloudfunctions.net/app/user/${firebase.auth().currentUser.uid}/changed`,param);
@@ -71,7 +71,7 @@ onRefresh = event => {
 
   onReact = event => {
     this.setState({ status: !this.state.status });
-    console.log(this.state.status);
+ //    console.log(this.state.status);
   };
 
 

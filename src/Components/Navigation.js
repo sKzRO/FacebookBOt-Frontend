@@ -8,7 +8,7 @@ class Navigation extends Component{
     return (
      
       <nav className="light-blue lighten-1" role="navigation">
-      <div className="nav-wrapper container"><a id="logo-container" href="localhost" className="brand-logo">ProductivityApp</a>
+      <div className="nav-wrapper container"><a id="logo-container" href="https://facebookwarninguh.firebaseapp.com" className="brand-logo">ProductivityApp</a>
        
       </div>
     </nav> 

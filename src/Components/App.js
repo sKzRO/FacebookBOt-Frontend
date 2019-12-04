@@ -18,9 +18,10 @@ firebase.initializeApp({
 class App extends Component{
   state = {
     isSignedIn: false,
-    message: '',
-    status: '',
-    activation_token: ''
+    message: 'Basic message',
+    status: false,
+    activation_token: '',
+    activated: false
   }
   uiConfig = {
     signInFlow: "popup",
@@ -33,13 +34,13 @@ class App extends Component{
         firebase.database().ref(`users/${firebase.auth().currentUser.uid}/message`).once("value", snapshot => {
           if (!snapshot.exists()){
             Firebase.database().ref(`/users/${firebase.auth().currentUser.uid}`).set(this.state);
-            console.log('DATA SAVED');//write to firebase   
+           // console.log('DATA SAVED');//write to firebase   
             let param = firebase.auth().currentUser.uid;//atentionezi backend-u
             this.postServer(`https://us-central1-facebookwarninguh.cloudfunctions.net/app/user/${firebase.auth().currentUser.uid}/activate`,param);   
            }
        });
 
-        console.log("You are signed in!");
+       // console.log("You are signed in!");
         return true;
       },
     }

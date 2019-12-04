@@ -38,7 +38,7 @@ class Footer extends Component{
       </div>
       <div className="footer-copyright">
         <div className="container">
-        Developed by <a className="orange-text text-lighten-3" href="http://utilsoftwaresolutions.com">UH Software&Solutions</a>
+        Developed by <a className="orange-text text-lighten-3" href="http://utilsoftwaresolutions.ro">UH Software&Solutions</a>
         </div>
       </div>
     </footer>
