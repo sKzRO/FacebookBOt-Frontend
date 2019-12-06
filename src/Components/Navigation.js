@@ -1,20 +1,17 @@
 import React, {Component} from 'react';
-import 'materialize-css'
-import 'materialize-css/dist/css/materialize.min.css'
+import 'materialize-css';
+import 'materialize-css/dist/css/materialize.min.css';
 
-class Navigation extends Component{
+class Navigation extends Component {
 
-  render () {
-    return (
-     
-      <nav className="light-blue lighten-1" role="navigation">
-      <div className="nav-wrapper container"><a id="logo-container" href="https://facebookwarninguh.firebaseapp.com" className="brand-logo">ProductivityApp</a>
-       
-      </div>
-    </nav> 
-    )
-  }
-  
+    render() {
+        return (
+            <nav className="light-blue lighten-1" role="navigation">
+                <div className="nav-wrapper container"><a id="logo-container" href="https://facebookwarninguh.firebaseapp.com" className="brand-logo">ProductivityApp</a>
+                </div>
+            </nav>
+        );
+    }
 }
 
 export default Navigation;
