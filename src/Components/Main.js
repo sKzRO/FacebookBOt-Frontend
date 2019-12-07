@@ -109,7 +109,7 @@ onRefresh = () => {
                               </label>
                           </div>
                           <button className="waves-effect light-blue lighten-1 btn" onClick={this.onRefresh}>Apply settings!</button>
-                          <button className="waves-effect purple lighten-1 btn" onClick={this.copyTokenToClipboard}>Copy Token</button>
+                          <button id="copyButton" className="waves-effect purple lighten-1 btn" onClick={this.copyTokenToClipboard}>Copy Token</button>
                           <i><p>*You need to copy the token and paste it in bot chat!</p></i>
                       </div>
                   </div>
