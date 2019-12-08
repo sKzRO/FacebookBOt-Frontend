@@ -5,24 +5,17 @@ import 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
 import '../Assets/Main.css';
 import M from 'materialize-css';
-import copy from 'copy-to-clipboard';
 
 class Main extends Component {
 
 state = {
     message: 'I work at project X!',
     status: null,
-    activation_token: '',
 }
 
 componentDidMount() {
     //aici o sa dam retrive la informatiile din database
     this.getUserData();
-}
-
-copyTokenToClipboard = () => {
-    copy('token ' + this.state.activation_token);
-    M.toast({html: 'You copied the token! Please copy in FB APP!'});
 }
 
 
@@ -31,8 +24,8 @@ postServer = async (url, param) => {
     const response = await fetch(url, {
         method: 'POST',
         body: JSON.stringify(param),
+        mode: 'no-cors',
     });
-    //  console.log(response.json());
 }
 
 messageChange = event => {
@@ -80,7 +73,7 @@ onRefresh = () => {
           <div className="container">
               <div className="row">
                   <div className="col s3">
-                      <img className="rimg" src={firebase.auth().currentUser.photoURL} alt={firebase.auth().currentUser.displayName}/>
+                      <img className="rimg" src={firebase.auth().currentUser.photoURL} alt='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMMKaCt6kvjP4NXJc3Qtz4DPktYhJ2-KPRJhP-GatsrzInnIEoEQ&s'/>
                       <h5>Hello, {firebase.auth().currentUser.displayName}!</h5>
                       <br></br>
                       <button className="waves-effect light-blue lighten-1 btn" onClick={() => {
@@ -109,8 +102,6 @@ onRefresh = () => {
                               </label>
                           </div>
                           <button className="waves-effect light-blue lighten-1 btn" onClick={this.onRefresh}>Apply settings!</button>
-                          <button id="copyButton" className="waves-effect purple lighten-1 btn" onClick={this.copyTokenToClipboard}>Copy Token</button>
-                          <i><p>*You need to copy the token and paste it in bot chat!</p></i>
                       </div>
                   </div>
               </div>

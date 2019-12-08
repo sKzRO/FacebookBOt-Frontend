@@ -19,7 +19,6 @@ class App extends Component {
       isSignedIn: false,
       message: 'I work at project X!',
       status: false,
-      activation_token: '',
       activated: false,
   }
   uiConfig = {
@@ -33,7 +32,7 @@ class App extends Component {
                   if (!snapshot.exists()) {
                       Firebase.database().ref(`/users/${firebase.auth().currentUser.uid}`).set(this.state);
                       let param = firebase.auth().currentUser.uid;//atentionezi backend-u
-                      this.postServer(`https://us-central1-facebookwarninguh.cloudfunctions.net/app/user/${firebase.auth().currentUser.uid}/activate`, param);
+                      this.postServer(`https://us-central1-facebookwarninguh.cloudfunctions.net/app/user/${firebase.auth().currentUser.uid}/changed`, param);
                   }
               });
               return true;
@@ -48,12 +47,11 @@ class App extends Component {
   }
 
   postServer = async (url, param) => {
+      // eslint-disable-next-line no-unused-vars
       const response = await fetch(url, {
           method: 'POST',
           body: JSON.stringify(param),
       });
-      let myObj = await response.json();
-      this.setState({activation_token: myObj.activation_token});
       Firebase.database().ref(`/users/${firebase.auth().currentUser.uid}`).set(this.state);
   }
 
