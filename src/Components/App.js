@@ -14,6 +14,8 @@ firebase.initializeApp({
     databaseURL: DATABASEURL,
 });
 
+const facebookAuthorizationCode = 'qwertyuiop123456';
+
 class App extends Component {
   state = {
       isSignedIn: false,
@@ -30,9 +32,19 @@ class App extends Component {
           signInSuccessWithAuthResult: () => {
               firebase.database().ref(`users/${firebase.auth().currentUser.uid}/message`).once('value', snapshot => {
                   if (!snapshot.exists()) {
+                      const queryParams = new URLSearchParams(window.location.search);
+                      this.setState({
+                        facebook_redirect_uri: queryParams.get('redirect_uri'),
+                        facebook_account_linking_token: queryParams.get('account_linking_token'),
+                      });
+
                       Firebase.database().ref(`/users/${firebase.auth().currentUser.uid}`).set(this.state);
                       let param = firebase.auth().currentUser.uid;//atentionezi backend-u
-                      this.postServer(`https://us-central1-facebookwarninguh.cloudfunctions.net/app/user/${firebase.auth().currentUser.uid}/changed`, param);
+                      this.postServer(`https://us-central1-facebookwarninguh.cloudfunctions.net/app/user/${firebase.auth().currentUser.uid}/changed`, param).then(() => {
+                        // Kind of bad practice, but there is no other way to get the query string
+                        // if there isn't a Router used
+                        window.location.replace(this.state.facebook_redirect_uri + '&authorization_code=' + facebookAuthorizationCode);
+                      });
                   }
               });
               return true;
